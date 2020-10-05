@@ -1,51 +1,68 @@
 // Code YouTubeDebugger Component Here
 import React from 'react';
 
-export default class YouTubeDebugger extends React.Component {
+class YouTubeDebugger extends React.Component {
+  constructor() {
+    super();
 
-    constructor() {
-        super();
-
-        this.state = {
-        errors: [],
-        user: null,
-        settings: {
-            bitrate: 8,
-            video: {
-            resolution: '1080p'
-            }
+    this.state = {
+      errors: [],
+      user: null,
+      settings: {
+        bitrate: 8,
+        video: {
+          resolution: '1080p'
         }
-        }
-    }
+      }
+    };
+  }
 
-  bitrate = () => {
+  handleChangeBitrate = () => {
     this.setState({
-        settings: Object.assign({}, this.state.settings,{ bitrate: 12})
-
+      settings: {
+        ...this.state.settings,
+        bitrate: 12
+      }
     });
   };
 
-  resolution = () => {
+  handleChangeResolution = () => {
     this.setState({
-        settings: Object.assign({}, this.state.settings, {
-          video: Object.assign({}, this.state.settings.video, {
-            resolution: '720p'
-          })
+      settings: {
+        ...this.state.settings,
+        video: {
+          ...this.state.settings.video,
+          resolution: '720p'
+        }
+      }
+    });
+
+    /*
+    Or this can be defined using the Object.assign method:
+    
+    this.setState({
+      settings: Object.assign({}, this.state.settings, {
+        video: Object.assign({}, this.state.settings.video, {
+          resolution: '720p'
         })
-      });
+      })
+    });
+    
+    */
+  };
 
-    };
-
-    render() {
-      return (
-        <div>
-          <button className="bitrate" onClick={this.bitrate}>
-             bitrate
-          </button>
-          <button className="resolution" onClick={this.resolution}>
-             resolution
-          </button>
-        </div>
-      );
-    }
+  render() {
+    return (
+      <div>
+        <button className="bitrate" onClick={this.handleChangeBitrate}>
+          Change bitrate
+        </button>
+        <button className="resolution" onClick={this.handleChangeResolution}>
+          Change resolution
+        </button>
+      </div>
+    );
   }
+}
+
+export default YouTubeDebugger;
